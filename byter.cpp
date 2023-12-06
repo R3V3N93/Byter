@@ -8,21 +8,23 @@ int main()
 {
     using namespace std;
     string _filename = "Balance";
-    cout << "Name the name for the file. passing *prev makes it remember previous file\n";
-    cin >> _filename;
+    Initiation:
+        _filename = "Balance";
+        cout << "Name the name for the file. passing *prev makes it remember previous file\n";
+        cin >> _filename;
 
-    if(_filename == "*prev")
-    {
-        ifstream _oldfile;
-        _oldfile.open("byter.ini");
+        if(_filename == "*prev")
+        {
+            ifstream _oldfile;
+            _oldfile.open("byter.ini");
 
-        if(_oldfile.bad())
-            _filename = "byter_default";
-        else
-            _oldfile >>_filename;
+            if(_oldfile.bad())
+                _filename = "byter_default";
+            else
+                _oldfile >>_filename;
 
-        _oldfile.close();
-    }
+            _oldfile.close();
+        }
     
     ifstream _oldfileconfigread;
     _oldfileconfigread.open("byter.ini");
@@ -30,12 +32,18 @@ int main()
     {
     	string _oldfilename;
 		_oldfileconfigread >> _oldfilename;
-		if(_filename != _oldfilename && filesystem::path("/" + _oldfilename))
+		if(_filename != _oldfilename && !std::filesystem::path("/" + _oldfilename).empty())
 		{
-			cout << "Warning, the file name you input is already existing and dnor is the previous file. Do you shall continue?"
-			string* _ynanswer;
-			cin >> *_ynanswer;
-			if()
+            string _ynanswer;
+            cout << "Warning, the file name you input is already existing and dnor is the previous file. Do you shall continue?\n[y][n]";
+            while (_ynanswer != "y" || _ynanswer != "n")
+            {
+                cin >> _ynanswer;
+            }
+            if (_ynanswer == "n")
+            {
+                goto Initiation;
+            }
 		}
 	}
 
